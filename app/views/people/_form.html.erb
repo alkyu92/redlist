@@ -1,0 +1,51 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <%= yield(:form_title) %>
+    </div>
+    <div class="panel-body">
+        <%= simple_form_for([@group, @people]) do |f| %>
+        <div class="row">
+          <div class="col-md-12">
+                <%= f.error_notification %>
+              </div>
+                <div class="col-md-6">
+                <%= f.input :profile_pic, as: :file, label: "Profile Picture" %>
+                <% if @people.profile_pic.exists? %>
+                <div class="row">
+                    <div class="col-lg-4 col-xs-12 text-center">
+                        <%= link_to @people.profile_pic.url do %>
+                        <div class="panel panel-default">
+                            <%= image_tag(@people.profile_pic, class: "img-responsive")%>
+                            <%= check_box_tag 'attached[]', @people.profile_pic %>
+                        </div>
+                        <% end %>
+                        <!-- end of link loop -->
+                      </div>
+                </div>
+                <p class="help-block">Check the box to delete attachment</p>
+            <% else %>
+                There is no profile image uploaded yet
+                <% end %> <!-- end of if @people.profile_pics.exists -->
+                <hr>
+                <%= f.input :name, label: "Name", autofocus: true %>
+                <%= f.label :occupation, required: true %>
+                <%= f.collection_select :occupation_id, Occupation.all,
+                 :id, :name, {prompt: "Select occupation"}, {class: "form-control"} %>
+                 <br>
+                <%= f.input :level, label: "Level" %>
+
+              </div>
+                <div class="col-md-6">
+                  <%= f.input :email, label: "Email" %>
+                <%= f.input :intro, label: "Introduction", input_html: {rows: 18} %>
+              </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <hr>
+            <%= f.button :submit, class: "form-control btn btn-primary" %>
+          </div>
+        </div>
+        <% end %>
+    </div>
+</div>

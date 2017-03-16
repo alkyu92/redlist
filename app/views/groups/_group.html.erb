@@ -1,0 +1,40 @@
+<div class="col-lg-4">
+  <%= link_to group_path(group) do%>
+    <% if group.group_pics.empty? %>
+    <%= image_tag('group_image.png', class: "img-responsive")%>
+    <% else %>
+    <%= image_tag(group.group_pics.first.pic.url(:thumbnail), class: "img-responsive") %>
+    <% end %>
+    <!-- if group_pics exists -->
+    <% end %>
+    <!-- end of link -->
+    <div class="panel">
+        <div class="panel-body">
+            <h3><%= group.name %></h3>
+            <h3>
+                <small><%= group.department %></small>
+            </h3>
+            <p><%= group.description.truncate(80) %></p>
+            <div class="row">
+                <div class="col-lg-8 col-xs-8">
+                    <%= link_to group_path(group) do %>
+                    Learn more
+                    <% end %>
+                </div>
+
+                <div class="col-lg-4 col-xs-4">
+                    <% if user_signed_in? %>
+                    <% if group.user_id == current_user.id ||
+              current_user.privilege == "sudo" ||
+              current_user.privilege == "admin" %>
+                    <%= link_to "Edit", edit_group_path(group) %>
+                    |
+                    <%= link_to "Delete", group, method: :delete,
+            data: {confirm: "Are you sure?"}%>
+                    <% end %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<a href="/users/<%= user.id %>">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+                <% if user.avatar.url == "/images/original/missing.png" %>
+                <%= letter_avatar_tag(user.name, 60, class: "img-responsive") %>
+            <% else %>
+                <%= image_tag(user.avatar.url(:user), class: "img-responsive") %>
+                <% end %>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-8 ">
+                <%= capitalize_all(user.name) %><br/>
+                <%= user.email %><br/>
+                <% if current_user.privilege == "sudo" %>
+                <small>
+                    <% if user.privilege == "sudo" %>
+                    Super User
+                    <% elsif user.privilege == "admin" %>
+                    Admin
+                <% else %>
+                    Normal User
+                    <% end %>
+                </small>
+                <% end %>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <% if current_user.privilege == "sudo" || current_user.id == user.id %>
+                <div class="pull-right">
+                    <% if current_user.id == user.id %>
+                    <%= link_to "Edit", edit_user_registration_path(user) %>
+                    <% end %>
+                    <% unless current_user.id == user.id %>
+                    <%= link_to "Delete", user_path(user), method: :delete, data: { confirm: "Are you sure?" } %>
+                    <% end %>
+                </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</a>

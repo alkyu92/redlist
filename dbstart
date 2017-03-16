@@ -1,0 +1,12 @@
+#! /bin/sh
+
+echo "database migration.."
+rails db:migrate:reset
+echo "migration completed\n"
+
+echo "seeding database.."
+rails db:seed
+echo "seed completed\n"
+
+echo "starting application server.."
+rails s

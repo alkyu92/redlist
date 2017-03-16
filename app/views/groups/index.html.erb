@@ -1,0 +1,39 @@
+<h3>Groups</h3>
+<hr>
+    <% if @groups.empty? %>
+    <div style="padding-top: 50px;"></div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel">
+                <div class="panel-body">
+                    <h3 class="text-center">
+                        Your Circles Are What You Are
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4">
+                                <hr>
+                            </div>
+                            <div class="col-lg-4"></div>
+                        </div>
+                    </h3>
+                    <h5 class="text-center">
+                        Giving back to communities. Through groups of people.
+                        <br><br>
+                        <% if user_signed_in? %>
+                        <%= link_to 'Create page', new_group_path %>
+                        about your laboratory group.
+                        <% else %>
+                        <%= link_to 'Signup', new_user_registration_path %>
+                        now to create your laboratory group page.
+                        <% end %>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+<% else %>
+<div class="row">
+    <%= render @groups %>
+    <% end %>
+</div>
+<div style="padding-bottom: 50px;"></div>

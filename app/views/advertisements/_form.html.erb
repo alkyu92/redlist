@@ -1,0 +1,81 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <%= yield(:form_title) %>
+    </div>
+    <div class="panel-body">
+        <%= simple_form_for @advertisement, html: { multipart: true } do |f| %>
+        <div class="row">
+            <div class="col-md-12">
+                <%= f.error_notification %>
+            </div>
+            <div class="col-md-6">
+                <%= f.label :category %>
+                <% if current_user.privilege == "normal" %>
+                <%= f.collection_select :category_id, Category.where("name = ? OR name = ?", "Promotions","Events"),
+                 :id, :name, {prompt: "Select category"}, {class: "form-control"} %>
+                 <% elsif current_user.privilege == "admin" || current_user.privilege == "sudo" %>
+                 <%= f.collection_select :category_id, Category.all,
+                  :id, :name, {prompt: "Select category"}, {class: "form-control"} %>
+                 <% end %>
+                <br>
+                <%= f.input :validity, label: "Valid Until (expiry date)",
+                hint: "advertisement will disappear on this date and time" %>
+                <%= f.input :name, id: "name" %>
+                <%= f.input :title, hint: "maximum 60 characters" %>
+                <%= f.input :amount %>
+                <%= f.input :address %>
+                <%= f.input :contact, hint: "phone number or fax" %>
+                <%= f.input :email %>
+                <%= f.input :bizhour, label: "Business Hour" %>
+                <%= f.input :website, label: "Website URL", hint: "e.g www.website.com" %>
+            </div>
+            <div class="col-md-6">
+                <%= f.input :description, input_html: {rows:18} %>
+                <%= f.input :requirement, input_html: {rows:18} %>
+                <%= f.input :enable_comment %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+                <%= f.label "Attachment" %>
+                <%= file_field_tag "images[]", type: :file, multiple: true %>
+                <p class="help-block">Can upload multiple files</p>
+                <% if @advertisement.documents.exists? %>
+                <div class="row">
+                    <% @advertisement.documents.each do |document| %>
+
+                    <div class="col-lg-2 col-xs-12 text-center">
+                        <%= link_to document.doc.url do %>
+                        <div class="panel panel-default">
+                            <%= image_tag(document.doc.url(:thumb), class: "img-responsive") if document.doc_content_type.match('image') ||
+                             document.doc_content_type.match('pdf')%>
+                            <%= letter_avatar_tag(document.doc_file_name, 150, class: "img-responsive") unless document.doc_content_type.match('image') ||
+                             document.doc_content_type.match('pdf') %>
+                            <%= check_box_tag 'attached[]', document.id %>
+                        </div>
+                        <% end %>
+                        <!-- end of link loop -->
+                      </div>
+
+                    <% end %>
+                    <!-- end of document loop -->
+                </div>
+                <p class="help-block">Check the box(es) to delete attachment(s)</p>
+                <hr>
+            <% else %>
+                There is no attachment uploaded yet
+                <% end %> <!-- end of if @advertisement.documents.exists -->
+            </div>
+        </div>
+
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <%= f.button :submit, class: "form-control btn btn-primary" %>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>

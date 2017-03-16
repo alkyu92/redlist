@@ -1,0 +1,60 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <%= yield(:form_title) %>
+    </div>
+    <div class="panel-body">
+        <%= simple_form_for @group, html: { multipart: true } do |f| %>
+        <div class="row">
+            <div class="col-md-12">
+                <%= f.error_notification %>
+                <div class="col-md-6">
+                <%= f.input :name, label: "Group name", autofocus: true %>
+                <%= f.input :department, label: "Group subname" %>
+                <%= f.input :address, label: "Address" %>
+                <%= f.input :phone, label: "Phone or Fax" %>
+                <%= f.input :email, label: "Email" %>
+              </div>
+              <div class="col-md-6">
+                <%= f.input :description, label: "Description",input_html: {rows: 16} %>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+                <%= f.label "Carousel Images" %>
+                <%= file_field_tag "pics[]", type: :file, multiple: true %>
+                <p class="help-block">Can upload multiple files</p>
+                <% if @group.group_pics.exists? %>
+                <div class="row">
+                    <% @group.group_pics.each do |picture| %>
+
+                    <div class="col-lg-2 col-xs-12 text-center">
+                        <%= link_to picture.pic.url do %>
+                        <div class="panel panel-default">
+                            <%= image_tag(picture.pic.url(:wide),class: "img-responsive") %>
+                            <%= check_box_tag 'attached[]', picture.id %>
+                        </div>
+                        <% end %>
+                        <!-- end of link loop -->
+                      </div>
+
+                    <% end %>
+                    <!-- end of picture loop -->
+                </div>
+                <p class="help-block">Check the box(es) to delete attachment(s)</p>
+            <% else %>
+            <hr>
+                There is no attachment uploaded yet
+                <% end %> <!-- end of if pic exists -->
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <hr>
+            <%= f.button :submit, class: "form-control btn btn-primary" %>
+          </div>
+        </div>
+        <% end %>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+
+        <% if @story.pic.exists? %>
+
+        <div class="row">
+
+              <!-- <div class="col-lg-4"></div> -->
+              <div class="col-lg-12">
+                <%= image_tag @story.pic.url(:show), class: "img-responsive" %>
+                </div>
+                <!-- <div class="col-lg-4"></div> -->
+
+        </div>
+
+        <% end %>
+        <div class="panel">
+            <div class="panel-body">
+                <h3><%= @story.title %></h3>
+                <small>
+                    Posted
+                    <%= time_ago_in_words(@story.created_at) %>
+                    ago
+                    <% if @story.anonymous == false %>
+                    by
+                    <%= capitalize_all(@story.user.name) %>
+                    <% end %>
+                </small>
+                <hr>
+                <p>
+                    <%= simple_format h(@story.story) %>
+                </p>
+                <hr>
+                <%= link_to "Back", stories_path,class: "btn btn-default" %>
+                <% if user_signed_in? %>
+                <% if @story.user_id == current_user.id ||
+                    current_user.privilege == "sudo" ||
+                    current_user.privilege == "admin"
+                    %>
+                <%= link_to "Edit", edit_story_path(@story),class: "btn btn-default" %>
+                <%= link_to "Delete", story_path(@story),class: "btn btn-danger",
+                method: :delete, data: { confirm: "Deleting story. Are you sure?" }%>
+                <% end %>
+                <!-- end of story.user_id -->
+                <% end %>
+                <!-- end of user_signed_in? -->
+            </div>
+        </div>

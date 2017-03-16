@@ -1,0 +1,11 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h5>Edit Comment</h5>
+    </div>
+    <div class="panel-body">
+        <%= simple_form_for @comment do |f| %>
+                <%= f.input :body, input_html: {rows:10}, autofocus: true %>
+                <%= f.button :submit %>
+        <% end %>
+    </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="panel post">
+    <a href="/advertisements/<%= advertisement.id %>">
+        <div class="col-lg-1 col-md-2 col-sm-1 col-xs-2" style="margin-top: 10px;">
+            <% if advertisement.user.avatar.url == "/images/original/missing.png" %>
+              <%= letter_avatar_tag(advertisement.user.name, 40) %>
+            <% else %>
+              <%= image_tag(advertisement.user.avatar.url(:index)) %>
+            <% end %>
+        </div>
+        <div class="col-lg-11 col-md-10 col-sm-11 col-xs-10" style="margin-top: 10px;">
+            <span style="font-weight:bold;">
+                <%= advertisement.title %>
+            </span>
+            <br/>
+            <small>
+                Posted
+                <%= time_ago_in_words(advertisement.created_at) %>
+                ago by
+                <%= capitalize_all(advertisement.user.name) %>
+            </small>
+        </div>
+    </a>
+    <br>
+    <div class="panel-body">
+        <br>
+        <div class="row">
+            <div class="col-md-9">
+                <p><%= simple_format h(advertisement.description.truncate(150)) %></p>
+            </div>
+            <div class="col-md-3 text-center">
+                <% if Time.now > advertisement.validity %>
+                  <h5 style="color: red;">Expired</h5>
+                <% end %>
+                <h5 style="font-weight: bold;"><%= advertisement.category.name %></h5>
+                <h5><%= advertisement.amount %></h5>
+            </div>
+        </div>
+        <div class="row">
+
+          <% if advertisement.documents.length <= 4 %>
+
+          <% advertisement.documents.each do |document| %>
+          <div class="col-lg-3">
+            <%= link_to document.doc.url do %>
+            <div class="panel panel-default text-center">
+              <%= image_tag(document.doc.url(:small), class: "img-responsive") if document.doc_content_type.match('image') ||
+              document.doc_content_type.match('pdf')%>
+              <%= letter_avatar_tag(document.doc_file_name, 100, class: "img-responsive") unless document.doc_content_type.match('image') ||
+              document.doc_content_type.match('pdf') %>
+           </div>
+           <% end %> <!-- end of advertisement.documents loop -->
+          </div>
+          <% end %> <!-- end of link_to -->
+
+          <% else %>
+
+          <% advertisement.documents.take(3).each do |document| %>
+          <div class="col-lg-3">
+            <%= link_to document.doc.url do %>
+            <div class="panel panel-default text-center">
+              <%= image_tag(document.doc.url(:small), class: "img-responsive") if document.doc_content_type.match('image') ||
+  document.doc_content_type.match('pdf')%>
+              <%= letter_avatar_tag(document.doc_file_name, 100, class: "img-responsive") unless document.doc_content_type.match('image') ||
+  document.doc_content_type.match('pdf') %>
+           </div>
+           <% end %> <!-- end of advertisement.documents loop -->
+          </div>
+          <% end %> <!-- end of link_to -->
+
+          <div class="col-lg-3">
+            <div class="panel panel-default text-center">
+              <a href="/advertisements/<%= advertisement.id %>">
+                <div style="padding-top:12px;padding-bottom: 11px;">
+                <h4><br>+<%= advertisement.documents.length - 3 %><br><br></h4>
+              </div>
+          </a>
+           </div>
+          </div>
+          <% end %> <!-- end of advertisement.documents.count -->
+
+        </div>
+        <div class="row">
+          <small>
+          <div class="col-md-3 col-xs-6">
+          <%= link_to "Read more", advertisement_path(advertisement) %>
+          </div>
+          <div class="col-md-9 col-xs-6 text-right">
+          <% if user_signed_in? %>
+            <% if advertisement.user.id == current_user.id || current_user.privilege == "sudo" || current_user.privilege == "admin" %>
+                <%= link_to "Edit", edit_advertisement_path(advertisement) %>
+                |
+                <%= link_to "Delete", advertisement, method: :delete,
+                data: {confirm: "Are you sure?"}%>
+            <% end %>
+          <% end %>
+        </div>
+      </small>
+        </div>
+    </div>
+</div>

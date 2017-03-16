@@ -1,0 +1,495 @@
+<div class="panel">
+  <div class="panel-body">
+<h1>
+  <%= capitalize_all(@group.name) %>
+  <small><%= capitalize_all(@group.department)%></small>
+</h1>
+<hr>
+</div>
+</div>
+
+<% picture = @group.group_pics %>
+
+<% unless picture.empty? %>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <% picture.each_with_index do |value,index| %>
+        <% if index == 0 %>
+        <li data-target="#myCarousel" data-slide-to="<%= index %>" class="active"></li>
+    <% else %>
+        <li data-target="#myCarousel" data-slide-to="<%= index %>"></li>
+        <% end %>
+        <!-- end of if index == 0 -->
+        <% end %>
+        <!-- end of loop -->
+    </ol>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        <% picture.each_with_index do |value, index| %>
+        <% if index == 0 %>
+        <div class="item active">
+            <%= image_tag(value.pic.url(:wide), class: "img-responsive") %>
+        </div>
+    <% else %>
+        <div class="item">
+            <%= image_tag(value.pic.url(:wide), class: "img-responsive") %>
+        </div>
+        <% end %>
+        <!-- end of if index == 0 -->
+        <% end %>
+        <!-- end of loop -->
+    </div>
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+<% end %> <!-- end of if picture.exists -->
+
+<div class="panel">
+  <div class="panel-body">
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>What We Do</h2>
+            <hr>
+            <p>
+                <%= @group.description %>
+            </p>
+        </div>
+        <div class="col-lg-6">
+            <h2>Contact Us</h2>
+            <hr>
+            <div class="col-lg-6">
+            <!-- Embedded Google Map -->
+            <% @location = Geokit::Geocoders::GoogleGeocoder.geocode @group.address %>
+            <iframe width="100%" height="200px" frameborder="0" scrolling="no"
+            marginheight="0" marginwidth="0"
+            src="http://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=<%= @location.ll %>&amp;z=13&amp;output=embed">
+            </iframe>
+          </div>
+            <div class="col-lg-6">
+            <address>
+                <strong><%= capitalize_all(@group.name) %></strong>
+                <br>
+                <%= @group.address %>
+            </address>
+            <address>
+                <abbr title="Phone">P:</abbr><%= @group.phone %>
+                <br>
+                <abbr title="Email">E:</abbr><%= @group.email %>
+                <a href="mailto:#"></a>
+            </address>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <hr>
+            <%= link_to "Back", groups_path,class: "btn btn-default" %>
+            <% if user_signed_in? %>
+            <% if @group.user_id == current_user.id ||
+          current_user.privilege == "sudo" ||
+          current_user.privilege == "admin"
+          %>
+            <%= link_to "Edit Group", edit_group_path(@group),class: "btn btn-default" %>
+            <%= link_to "Delete Group", group_path(@group),class: "btn btn-danger",
+      method: :delete, data: { confirm: "Deleting group. Are you sure?" }%>
+            <% end %> <!-- end of user privilege check -->
+            <% end %> <!-- end of if user_signed_in? -->
+        </div>
+    </div>
+
+    <% if @group.people.exists? %>
+    <hr>
+    <h2>People</h2>
+    <hr>
+    <div class="row">
+
+        <% @group.people.each do |people| %>
+
+        <div class="col-lg-3 col-xs-12" style="display: block; height: 400px;">
+            <% if people.profile_pic.exists? %>
+              <%= image_tag(people.profile_pic.url(:profile), class: "img-circle img-responsive img-center")%>
+            <% else %>
+              <%= letter_avatar_tag(people.name, 200, class: "img-circle img-responsive img-center") %>
+            <% end %> <!-- end of if profile_pic.exists -->
+
+            <h3><%= people.name %>
+                <small><%= people.level %></small>
+            </h3>
+            <p>
+                <%= people.intro %>
+            </p>
+            <% if user_signed_in? %>
+            <% if @group.user_id == current_user.id ||
+          current_user.privilege == "sudo" ||
+          current_user.privilege == "admin"
+          %>
+            <div class="btn-group" role="group">
+                <%= link_to "Edit", edit_group_person_path(@group,people),class: "btn btn-default" %>
+                <%= link_to "Delete", group_person_path(@group,people),class: "btn btn-danger",
+                method: :delete, data: { confirm: "Deleting people entry. Are you sure?" }%>
+            </div>
+            <% end %> <!-- end of user privilege check -->
+            <% end %> <!-- end of if user_signed_in? -->
+        </div>
+
+        <% end %> <!-- end of prof loop -->
+
+
+        <% if user_signed_in? %>
+        <% if @group.user_id == current_user.id ||
+      current_user.privilege == "sudo" ||
+      current_user.privilege == "admin"
+      %>
+        <div class="col-lg-3 col-xs-12">
+            <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
+            <h3>Name
+                <small>Occupation Level</small>
+            </h3>
+            <p>Person introduction</p>
+            <%= link_to 'Create New', new_group_person_path(@group) ,class: "btn btn-default"%>
+        </div>
+        <% end %> <!-- end of user privilege check-->
+        <% end %> <!-- end of if user_signed_in -->
+    </div>
+    <% else %>
+
+        <% if user_signed_in? %>
+        <% if @group.user_id == current_user.id ||
+              current_user.privilege == "sudo" ||
+              current_user.privilege == "admin"
+              %>
+        <hr>
+        <h2>People</h2>
+        <hr>
+        <div class="row">
+          <div class="col-lg-3 col-xs-12">
+              <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
+              <h3>Name
+                  <small>Occupation Level</small>
+              </h3>
+              <p>Person introduction</p>
+              <%= link_to 'Create New', new_group_person_path(@group) ,class: "btn btn-default"%>
+          </div>
+        </div>
+        <% end %>
+        <!-- status check-->
+        <% end %>
+        <!-- if user_signed_in -->
+    <% end %> <!-- end of if people.exists -->
+
+    <% if @group.researches.exists? %>
+    <hr>
+    <h2>Research Areas</h2>
+    <hr>
+    <div class="row">
+        <% @group.researches.each do |research|%>
+        <div class="col-lg-3 col-xs-12">
+            <h3><%= research.major %></h3>
+            <h3>
+                <small><%= research.specialization %></small>
+            </h3>
+            <p>
+                <%= research.description %>
+            </p>
+            <% if user_signed_in? %>
+            <% if @group.user_id == current_user.id ||
+              current_user.privilege == "sudo" ||
+              current_user.privilege == "admin"
+              %>
+            <div class="btn-group" role="group">
+                <%= link_to "Edit", edit_group_research_path(@group,research),class: "btn btn-default" %>
+                <%= link_to "Delete", group_research_path(@group,research),class: "btn btn-danger",
+          method: :delete, data: { confirm: "Deleting research entry. Are you sure?" }%>
+            </div>
+            <% end %>
+            <!-- end of research.user_id -->
+            <% end %>
+            <!-- end of user_signed_in? -->
+        </div>
+        <% end %>
+        <!-- end of loop-->
+        <% if user_signed_in? %>
+        <% if @group.user_id == current_user.id ||
+          current_user.privilege == "sudo" ||
+          current_user.privilege == "admin"
+          %>
+        <div class="col-lg-3 col-xs-12">
+            <h3>Major</h3>
+            <h3>
+                <small>Specialization</small>
+            </h3>
+            <p>Research Description</p>
+            <%= link_to 'Create New', new_group_research_path(@group) ,class: "btn btn-default"%>
+        </div>
+        <% end %>
+        <!-- end of advertisement.user_id -->
+        <% end %>
+        <!-- end of user_signed_in? -->
+    </div>
+
+<% else %>
+
+    <% if user_signed_in? %>
+    <% if @group.user_id == current_user.id ||
+          current_user.privilege == "sudo" ||
+          current_user.privilege == "admin"
+          %>
+    <hr>
+    <h2>Research Areas</h2>
+    <hr>
+    <div class="row">
+        <div class="col-lg-3 col-xs-12">
+            <h3>Major</h3>
+            <h3>
+                <small>Specialization</small>
+            </h3>
+            <p>Research Description</p>
+            <%= link_to 'Create New', new_group_research_path(@group) ,class: "btn btn-default"%>
+        </div>
+    </div>
+    <% end %>
+    <!-- status check-->
+    <% end %>
+    <!-- if user_signed_in -->
+    <% end %>
+    <!-- if researches exists -->
+
+    <% if @group.publications.exists? %>
+    <hr>
+    <h2>Publications</h2>
+    <hr>
+    <div class="row">
+        <% @group.publications.each do |publication|%>
+        <div class="col-lg-3">
+            <h3><%= publication.title %></h3>
+            <h3>
+                <small><%= publication.event %></small>
+            </h3>
+            <p>
+                <%= publication.description %>
+            </p>
+            <% if user_signed_in? %>
+            <% if @group.user_id == current_user.id ||
+              current_user.privilege == "sudo" ||
+              current_user.privilege == "admin"
+              %>
+            <div class="btn-group" role="group">
+                <%= link_to "Edit", edit_group_publication_path(@group,publication),class: "btn btn-default" %>
+                <%= link_to "Delete", group_publication_path(@group,publication),class: "btn btn-danger",
+          method: :delete, data: { confirm: "Deleting publication entry. Are you sure?" }%>
+            </div>
+            <% end %>
+            <!-- end of publication.user_id -->
+            <% end %>
+            <!-- end of user_signed_in? -->
+        </div>
+        <% end %>
+        <!-- end of loop-->
+        <% if user_signed_in? %>
+        <% if @group.user_id == current_user.id ||
+          current_user.privilege == "sudo" ||
+          current_user.privilege == "admin"
+          %>
+        <div class="col-lg-3 col-xs-12">
+            <h3>Publication Title</h3>
+            <h3>
+                <small>Institution Name</small>
+            </h3>
+            <p>Publication Description</p>
+            <%= link_to 'Create New', new_group_publication_path(@group) ,class: "btn btn-default"%>
+        </div>
+        <% end %>
+        <!-- end of advertisement.user_id -->
+        <% end %>
+        <!-- end of user_signed_in? -->
+    </div>
+<% else %>
+    <% if user_signed_in? %>
+    <% if @group.user_id == current_user.id ||
+          current_user.privilege == "sudo" ||
+          current_user.privilege == "admin"
+          %>
+    <hr>
+    <h2>Publications</h2>
+    <hr>
+    <div class="row">
+        <div class="col-lg-3 col-xs-12">
+            <h3>Publication Title</h3>
+            <h3>
+                <small>Institution Name</small>
+            </h3>
+            <p>Publication Description</p>
+            <%= link_to 'Create New', new_group_publication_path(@group) ,class: "btn btn-default"%>
+        </div>
+    </div>
+    <% end %>
+    <!-- status check-->
+    <% end %>
+    <!-- if user_signed_in -->
+    <% end %>
+    <!-- if publications exists -->
+
+    <% if @group.awards.exists? %>
+    <hr>
+    <h2>Awards and Grants</h2>
+    <hr>
+    <div class="row">
+        <% @group.awards.each do |award|%>
+        <div class="col-lg-3 col-xs-12">
+            <h3><%= award.title %></h3>
+            <h3>
+                <small><%= award.event %></small>
+            </h3>
+            <p>
+                <%= award.description %>
+            </p>
+            <% if user_signed_in? %>
+            <% if @group.user_id == current_user.id ||
+                current_user.privilege == "sudo" ||
+                current_user.privilege == "admin"
+                %>
+            <div class="btn-group" role="group">
+                <%= link_to "Edit", edit_group_award_path(@group,award),class: "btn btn-default" %>
+                <%= link_to "Delete", group_award_path(@group,award),class: "btn btn-danger",
+            method: :delete, data: { confirm: "Deleting award entry. Are you sure?" }%>
+            </div>
+            <% end %>
+            <!-- end of advertisement.user_id -->
+            <% end %>
+            <!-- end of user_signed_in? -->
+        </div>
+        <% end %>
+        <!-- end of loop-->
+        <% if user_signed_in? %>
+        <% if @group.user_id == current_user.id ||
+            current_user.privilege == "sudo" ||
+            current_user.privilege == "admin"
+            %>
+        <div class="col-lg-3 col-xs-12">
+            <h3>Award Title</h3>
+            <h3>
+                <small>Event Name</small>
+            </h3>
+            <p>Award Description</p>
+            <%= link_to 'Create New', new_group_award_path(@group) ,class: "btn btn-default"%>
+        </div>
+        <% end %>
+        <!-- end of advertisement.user_id -->
+        <% end %>
+        <!-- end of user_signed_in? -->
+    </div>
+<% else %>
+    <% if user_signed_in? %>
+    <% if @group.user_id == current_user.id ||
+          current_user.privilege == "sudo" ||
+          current_user.privilege == "admin"
+          %>
+    <hr>
+    <h2>Awards and Grants</h2>
+    <hr>
+    <div class="row">
+        <div class="col-lg-3 col-xs-12">
+            <h3>Award Title</h3>
+            <h3>
+                <small>Event Name</small>
+            </h3>
+            <p>Award Description</p>
+            <%= link_to 'Create New', new_group_award_path(@group) ,class: "btn btn-default"%>
+        </div>
+    </div>
+    <% end %>
+    <!-- status check-->
+    <% end %>
+    <!-- if user_signed_in -->
+    <% end %>
+    <!-- if awards exists -->
+
+    <% if @group.courses.exists? %>
+    <hr>
+    <h2>Teaching and Classes</h2>
+    <hr>
+    <div class="row">
+        <% @group.courses.each do |course|%>
+        <div class="col-lg-3 col-xs-12">
+            <h3><%= course.title %></h3>
+            <h3>
+                <small><%= course.place %></small>
+            </h3>
+            <p>
+                <%= course.description %>
+            </p>
+            <% if user_signed_in? %>
+            <% if @group.user_id == current_user.id ||
+              current_user.privilege == "sudo" ||
+              current_user.privilege == "admin"
+              %>
+            <div class="btn-group" role="group">
+                <%= link_to "Edit", edit_group_course_path(@group,course),class: "btn btn-default" %>
+                <%= link_to "Delete", group_course_path(@group,course),class: "btn btn-danger",
+          method: :delete, data: { confirm: "Deleting course entry. Are you sure?" }%>
+            </div>
+            <% end %>
+            <!-- end of advertisement.user_id -->
+            <% end %>
+            <!-- end of user_signed_in? -->
+        </div>
+        <% end %>
+        <!-- end of loop-->
+        <% if user_signed_in? %>
+        <% if @group.user_id == current_user.id ||
+          current_user.privilege == "sudo" ||
+          current_user.privilege == "admin"
+          %>
+        <div class="col-lg-3 col-xs-12">
+            <h3>Course Title</h3>
+            <h3>
+                <small>Place</small>
+            </h3>
+            <p>Course Description</p>
+            <%= link_to 'Create New', new_group_course_path(@group) ,class: "btn btn-default"%>
+        </div>
+        <% end %>
+        <!-- end of advertisement.user_id -->
+        <% end %>
+        <!-- end of user_signed_in? -->
+    </div>
+<% else %>
+    <% if user_signed_in? %>
+    <% if @group.user_id == current_user.id ||
+          current_user.privilege == "sudo" ||
+          current_user.privilege == "admin"
+          %>
+    <hr>
+    <h2>Teaching and Classes</h2>
+    <hr>
+    <div class="row">
+        <div class="col-lg-3 col-xs-12">
+            <h3>Course Title</h3>
+            <h3>
+                <small>Place</small>
+            </h3>
+            <p>Course Description</p>
+            <%= link_to 'Create New', new_group_course_path(@group) ,class: "btn btn-default"%>
+        </div>
+    </div>
+    <% end %>
+    <!-- status check-->
+    <% end %>
+    <!-- if user_signed_in -->
+    <% end %>
+    <!-- if courses exists -->
+    <!-- /.row -->
+</div>
+</div>
+
+<div style="padding-bottom: 50px;"></div>

@@ -1,0 +1,164 @@
+<div class="col-md-4">
+    <div class="panel">
+        <div class="panel-body">
+            <div class="col-md-12 text-center">
+                <hr>
+                <%= link_to edit_user_registration_path(@user) do %>
+                  <% if @user.avatar.url == "/images/original/missing.png" %>
+                    <%= letter_avatar_tag(@user.name, 150, class: "img-responsive img-center") %>
+                  <% else %>
+                    <%= image_tag(@user.avatar.url(:profile), class: "img-responsive img-center") %>
+                  <% end %>
+                <% end %>
+            </div>
+            <div class="col-md-12">
+                <hr>
+                <h3><%= capitalize_all(@user.name)%></h3>
+                <i class="glyphicon glyphicon-envelope"></i>
+                <%= @user.email %><br/>
+                <% if current_user.privilege == "sudo" %>
+
+                <% unless @user.privilege == "normal" %>
+                <i class="glyphicon glyphicon-user"></i>
+                <%= capitalize_all(@user.privilege) %><br/>
+                <% end %>
+
+                <% unless @user.created_at.nil? %>
+                <i class="glyphicon glyphicon-save"></i>
+                <%= @user.created_at %><br/>
+                <% end %>
+
+                <% unless @user.updated_at.nil? %>
+                <i class="glyphicon glyphicon-log-in"></i>
+                <%= @user.updated_at %><br/>
+                <% end %>
+
+                <% unless @user.sign_in_count.nil? %>
+                <i class="glyphicon glyphicon-log-in"></i>
+                Signed in
+                <%= pluralize(@user.sign_in_count, 'time') %>
+                <br/>
+                <% end %>
+
+                <% unless @user.current_sign_in_at.nil? %>
+                <i class="glyphicon glyphicon-log-in"></i>
+                <%= @user.current_sign_in_at %><br/>
+                <% end %>
+
+                <% unless @user.last_sign_in_at.nil? %>
+                <i class="glyphicon glyphicon-log-in"></i>
+                <%= @user.last_sign_in_at %><br/>
+                <% end %>
+
+                <% unless @user.current_sign_in_ip.nil? %>
+                <i class="glyphicon glyphicon-globe"></i>
+                <%= @user.current_sign_in_ip %><br/>
+                <% end %>
+
+                <% unless @user.last_sign_in_ip.nil? %>
+                <i class="glyphicon glyphicon-globe"></i>
+                <%= @user.last_sign_in_ip %><br/>
+                <% end %>
+
+                <% end %>
+            </div>
+
+            <div class="col-md-12">
+            <hr>
+          </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6">
+  <div class="panel">
+    <div class="panel-body">
+  <h4>Create</h4>
+  <hr>
+  <div class="text-center">
+  <%= link_to 'New Story', new_story_path, class: "btn btn-default" %>
+  <%= link_to 'New Advertisement', new_advertisement_path, class: "btn btn-default" %>
+  <%= link_to 'New Group', new_group_path, class: "btn btn-default" %>
+</div>
+<hr>
+</div>
+</div>
+    <% if current_user.id == @user.id || current_user.privilege == "sudo" %>
+      <% user_ads = @user.advertisements.order("created_at DESC") %>
+    <% else %>
+      <% user_ads = @user.advertisements.where("validity IS NULL OR validity > ?",Time.now).order("created_at DESC") %>
+    <% end %>
+
+    <% if user_ads.empty? == false %>
+
+    <% user_ads.each do |advertisement| %>
+    <div class="panel">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="/advertisements/<%= advertisement.id %>">
+                    <div class="col-lg-1 col-xs-2" style="margin-top: 10px;">
+                        <% if advertisement.user.avatar.url == "/images/original/missing.png" %>
+                        <%= letter_avatar_tag(advertisement.user.name, 40) %>
+                    <% else %>
+                        <%= image_tag(advertisement.user.avatar.url(:index)) %>
+                        <% end %>
+                    </div>
+                    <div class="col-lg-11 col-xs-10" style="margin-top: 10px;">
+                        <span style="font-weight:bold;">
+                            <%= advertisement.title %>
+                        </span>
+                        <br/>
+                        <small>
+                            Posted
+                            <%= time_ago_in_words(advertisement.created_at) %>
+                            ago by
+                            <%= capitalize_all(advertisement.user.name) %>
+                        </small>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-9">
+                    <p><%= simple_format h(advertisement.description.truncate(150)) %></p>
+                </div>
+                <div class="col-md-3 text-center">
+                  <% if Time.now > advertisement.validity %>
+                    <h5 style="color: red;">Expired</h5>
+                  <% end %>
+                    <h5><%= advertisement.category.name %></h5>
+                    <h5><%= advertisement.amount %></h5>
+                </div>
+            </div>
+            <div class="row">
+                <small>
+                    <div class="col-lg-3 col-xs-6">
+                        <%= link_to "Read more", advertisement_path(advertisement) %>
+                    </div>
+                    <div class="col-lg-9 col-xs-6 text-right">
+                        <% if user_signed_in? %>
+                        <% if advertisement.user.id == current_user.id ||
+                            current_user.privilege == "sudo" ||
+                            current_user.privilege == "admin" %>
+                        <%= link_to "Edit", edit_advertisement_path(advertisement) %>
+                        |
+                        <%= link_to "Delete", advertisement, method: :delete,
+                        data: {confirm: "Are you sure?"}%>
+                        <% end %>
+                        <% end %>
+                    </div>
+                </small>
+            </div>
+        </div>
+    </div>
+    <% end %> <!--end of advertisement loop -->
+  <% else %>
+    <div class="panel">
+      <div class="panel-body text-center">
+    There is no post yet
+  </div>
+</div>
+  <% end %><!--end of if ads empty -->
+</div>
+<div class="col-md-2"></div>

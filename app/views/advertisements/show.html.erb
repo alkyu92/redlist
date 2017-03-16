@@ -1,0 +1,229 @@
+<div class="row">
+    <div class="col-lg-7">
+        <div class="panel">
+            <div class="panel-body" style="margin: 20px 10px 20px 10px;">
+                <h2><%= @advertisement.title %></h2>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2" style="margin-top: 7px">
+                        <% if @advertisement.user.avatar.url == "/images/original/missing.png" %>
+                        <%= letter_avatar_tag(@advertisement.user.name, 40) %>
+                    <% else %>
+                        <%= image_tag(@advertisement.user.avatar.url(:show)) %>
+                        <% end %>
+                        <!-- end of avatar url -->
+                    </div>
+                    <div class="col-lg-8 col-md-10 col-sm-10 col-xs-10">
+                        <h4><%= @advertisement.name %>
+                        <small><br>
+                            Posted
+                            <%= time_ago_in_words(@advertisement.created_at) %>
+                            ago by
+                            <%= link_to capitalize_all(@advertisement.user.name), user_path(@advertisement.user_id) %>
+                        </small>
+                        </h4>
+                    </div>
+                    <div class="col-lg-3 col-xs-12 text-center" style="margin-top: 15px;">
+                        <% if Time.now > @advertisement.validity %>
+                        <h3 style="color: red; margin-top: -15px;">Expired</h3>
+                        <% end %>
+                        <!-- end of Time.now -->
+                        <h3><%= @advertisement.category.name %></h3>
+                        <% if @advertisement.amount? %>
+                        <h3><%= @advertisement.amount %></h3>
+                        <% end %>
+                        <!-- end of advertisement.amount -->
+                    </div>
+                </div>
+                <% if Time.now < @advertisement.validity %>
+                <h5>
+                    <%= distance_of_time_in_words(Time.now,@advertisement.validity).capitalize %>
+                    before advertisement ended
+                </h5>
+                <% else %>
+                <h5>
+                    Advertisement has been
+                    <span style="color: red;">expired</span>
+                    <%= distance_of_time_in_words(Time.now,@advertisement.validity) %>
+                    ago<br>
+                    <small>Please update validity date to keep advertisement appear to everybody</small>
+                </h5>
+                <% end %>
+                <!-- end of Time.now -->
+
+                <!-- <h5>
+          Number of views:
+          <%#= @advertisement.view %>
+        </h5> -->
+                <hr>
+                <h3>Description</h3>
+                <p><%= simple_format h(@advertisement.description) %></p>
+                <% if @advertisement.requirement? %>
+                <br>
+                <h3>Requirement</h3>
+                <p><%= simple_format h(@advertisement.requirement) %></p>
+                <% end %>
+                <!-- end of advertisement.requirement -->
+                <br>
+                <!-- /.row -->
+                <%= link_to "Back", advertisements_path,class: "btn btn-default" %>
+                <% if user_signed_in? %>
+                <% if @advertisement.user_id == current_user.id ||
+                    current_user.privilege == "sudo" ||
+                    current_user.privilege == "admin"
+                    %>
+                <%= link_to "Edit", edit_advertisement_path(@advertisement),class: "btn btn-default" %>
+                <%= link_to "Delete", advertisement_path(@advertisement),class: "btn btn-danger",
+                method: :delete, data: { confirm: "Deleting advertisement. Are you sure?" }%>
+                <% end %>
+                <!-- end of advertisement.user_id -->
+                <% end %>
+                <!-- end of user_signed_in? -->
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+    <% unless @advertisement.address.empty? &&
+    @advertisement.contact.empty? &&
+    @advertisement.email.empty? &&
+    @advertisement.bizhour.empty? &&
+    @advertisement.website.empty?
+    %>
+        <% unless @advertisement.address.empty? %>
+        <div class="panel">
+            <div class="panel-body">
+                <!-- Content Row -->
+                <h3>Location</h3>
+                <hr>
+                <div class="row">
+                    <!-- Map Column -->
+                    <div class="col-md-12">
+                        <!-- Embedded Google Map -->
+                        <% @location = Geokit::Geocoders::GoogleGeocoder.geocode @advertisement.address %>
+                        <iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=<%= @location.ll %>&amp;z=13&amp;output=embed"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% end %>
+        <!-- Contact Details Column -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <h3>Contact Details</h3>
+                        <hr>
+                        <% unless @advertisement.address.empty? %>
+                        <p>
+                            <%= @advertisement.address %><br>
+                        </p>
+                        <% end %>
+                        <% unless @advertisement.contact.empty? %>
+                        <p>
+                            <i class="fa fa-phone"></i>
+                            <%= @advertisement.contact %>
+                        </p>
+                        <% end %>
+                        <% unless @advertisement.email.empty? %>
+                        <p>
+                            <i class="fa fa-envelope-o"></i>
+                            <%= @advertisement.email %>
+                        </p>
+                        <% end %>
+                        <% unless @advertisement.bizhour.empty? %>
+                        <p>
+                            <i class="fa fa-clock-o"></i>
+                            <%= @advertisement.bizhour %>
+                        </p>
+                        <% end %>
+                        <% unless @advertisement.website.empty? %>
+                        <p>
+                            <i class="fa fa-globe"></i>
+                            <a href="http://<%= @advertisement.website %>" target="_blank">
+                                <%= @advertisement.website %>
+                            </a>
+                        </p>
+                        <% end %>
+                    </div>
+                </div>
+                <br/>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>
+
+<% if @advertisement.documents.exists? %>
+<div class="panel">
+    <div class="panel-body">
+        <h3>Attachment Files</h3>
+        <hr>
+        <div class="row">
+
+            <% @advertisement.documents.each do |document| %>
+            <div class="col-lg-2 col-xs-6">
+                <div class="panel text-center">
+                        <%= link_to document.doc.url do %>
+                        <%= image_tag(document.doc.url(:thumb), class: "img-responsive") if document.doc_content_type.match('image') ||
+                        document.doc_content_type.match('pdf')%>
+                        <%= letter_avatar_tag(document.doc_file_name, 150, class: "img-responsive") unless document.doc_content_type.match('image') ||
+                        document.doc_content_type.match('pdf') %>
+                        <br>
+                        <%= document.doc_file_name.truncate(14) %>
+                        <% end %>
+                        <!-- end of link loop -->
+                </div>
+            </div>
+            <% end %>
+            <!-- end of document loop -->
+        </div>
+    </div>
+</div>
+<% end %>
+<!-- end of documents.exists? loop -->
+
+<div class="panel">
+    <div class="panel-body">
+        <% if @advertisement.enable_comment == true %>
+        <h4>Comments &middot
+            <small><%= Comment.where(advertisement_id: @advertisement.id).length %></small>
+        </h4>
+        <br>
+        <div class="row">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right">
+                <% if user_signed_in? %>
+                <% if current_user.avatar.url == "/images/original/missing.png" %>
+                <%= letter_avatar_tag(current_user.name, 50) %>
+            <% else %>
+                <%= image_tag(current_user.avatar.url(:parent)) %>
+                <% end %>
+            <% else %>
+                <%= image_tag('blank_person_50.gif')%>
+                <% end %>
+            </div>
+            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-10 text-left">
+                <%= simple_form_for [@advertisement, Comment.new],html: {id: "form-comment"} do |f| %>
+                <%= f.error_notification %>
+                <%= f.input :body,label: false, placeholder: "Add a public comment..." %>
+                <%= f.button :submit, class: "btn btn-default" %>
+                <% end %>
+            </div>
+        </div>
+        <hr>
+        <% if @advertisement.comments.length == 0 %>
+        <div class="text-center">
+            <small>Be the first to comment on this advertisement post</small>
+        </div>
+        <% end %>
+        <div id="comments-partial">
+        <%= render(partial: 'comments/comment', collection: @advertisement.comments) %>
+        </div>
+        <% end %>
+        <% if @advertisement.enable_comment == false %>
+        <div class="text-center">
+            <small>Comments are disabled for this advertisement post</small>
+        </div>
+        <% end %>
+    </div>
+</div>

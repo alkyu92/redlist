@@ -1,0 +1,54 @@
+<!-- <div class="col-md-3"> -->
+
+    <div class="panel panel-story post">
+          <% if story.pic.exists? %>
+          <a href="/stories/<%= story.id %>">
+              <%= image_tag story.pic.url(:thumbnail), class: "img-responsive" %>
+          </a>
+          <% end %>
+            <div class="col-lg-12" style="padding-top: 10px;">
+                <strong>
+                    <%= story.title %>
+                </strong>
+                <br/>
+                <small>
+                    Posted
+                    <%= time_ago_in_words(story.created_at) %>
+                    ago
+                    <% if story.anonymous == false %>
+                    by
+                    <%= capitalize_all(story.user.name) %>
+                    <% end %>
+                </small>
+            </div>
+
+        <br>
+        <div class="panel-body">
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        <%= simple_format h(story.story) %>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <small>
+                    <div class="col-md-6 col-xs-6">
+                        <%= link_to "Read more", story_path(story) %>
+                    </div>
+                    <div class="col-md-6 col-xs-6 text-right">
+                        <% if user_signed_in? %>
+                        <% if story.user.id == current_user.id || current_user.privilege == "sudo" || current_user.privilege == "admin" %>
+                        <%= link_to "Edit", edit_story_path(story) %>
+                        |
+                        <%= link_to "Delete", story, method: :delete,
+                data: {confirm: "Are you sure?"}%>
+                        <% end %>
+                        <% end %>
+                    </div>
+                </small>
+            </div>
+        </div>
+    </div>
+<!-- </div> -->

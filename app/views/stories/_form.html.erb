@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <%= yield(:form_title) %>
+    </div>
+    <div class="panel-body">
+        <%= simple_form_for @story, html: { multipart: true } do |f| %>
+        <div class="row">
+            <div class="col-md-12">
+                <%= f.error_notification %>
+                <%= f.input :pic, as: :file, label: "Picture" %>
+                <% if @story.pic.exists? %>
+                <div class="row">
+                    <div class="col-lg-2 col-xs-12 text-center">
+                        <%= link_to @story.pic.url do %>
+                        <div class="panel panel-default">
+                            <%= image_tag(@story.pic, class: "img-responsive")%>
+                            <%= check_box_tag 'attached[]', @story.pic %>
+                        </div>
+                        <% end %>
+                        <!-- end of link loop -->
+                      </div>
+                </div>
+                <p class="help-block">Check the box to delete attachment</p>
+            <% else %>
+                There is no image uploaded yet
+                <% end %> <!-- end of if @advertisement.documents.exists -->
+                <hr>
+                <%= f.input :title, label: "Title", autofocus: true %>
+                <%= f.input :story, label: "Story", input_html: {rows: 30} %>
+                <%= f.input :anonymous, label: "Make me anonymous"%>
+                <hr>
+                <%= f.button :submit, class: "form-control btn btn-primary" %>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>

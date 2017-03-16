@@ -1,0 +1,21 @@
+<div class="row">
+<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right">
+    <% if user_signed_in? %>
+      <% if current_user.avatar.url == "/images/original/missing.png" %>
+        <%= letter_avatar_tag(current_user.name, 50, class: "img-responsive") %>
+        <% else %>
+        <%= image_tag(current_user.avatar.url(:parent), class: "img-responsive") %>
+    <% end %>
+    <% else %>
+    <%= image_tag('blank_person_50.gif', class: "img-responsive")%>
+    <% end %>
+</div>
+<div class="col-lg-11 col-md-11 col-sm-11 col-xs-10 text-left">
+    <%= simple_form_for [@feedback, Feedback.new] do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :email, label: false, placeholder: "Your email address"%>
+    <%= f.input :inquiry, label: false, placeholder: yield(:placeholder) %>
+    <%= f.button :submit,yield(:submit_text), class: "btn btn-success form-control" %>
+    <% end %>
+</div>
+</div>

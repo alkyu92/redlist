@@ -1,0 +1,51 @@
+<div class="col-md-3"></div>
+<div class="col-md-6 panel panel-default">
+    <h3>Notifications</h3>
+    <hr>
+    <% unless @noties.nil? %>
+    <% @noties.each do |notify| %>
+    <% user = User.includes(:notifications).find_by(id: notify.notified_by_id) %>
+    <%= link_to(advertisement_path(notify.advertisement_id)) do %>
+    <% if notify.read == true %>
+        <div class="row">
+    <% else %>
+        <div class="row" style="background: #dadada;">
+    <% end %> <!-- end of notify.read == true -->
+            <div class="col-lg-1 col-xs-2">
+            <% if user.avatar.url == "/images/original/missing.png" %>
+                <%= letter_avatar_tag(user.name, 40, class: "img-responsive") %>
+            <% else %>
+                <%= image_tag(user.avatar.url(:index), class: "img-responsive") %>
+            <% end %> <!-- end of user.avatar.url -->
+            </div>
+            <div class="col-lg-11 col-xs-10">
+                <small>
+                    <% if user.id == current_user.id %>
+                    You
+                <% else %>
+                    <%= capitalize_all(user.name) %>
+                    <% end %> <!-- end of user.id == current_user.id -->
+                    commented on your
+                    <% if notify.comment_type == "Advertisement" %>
+                    ads post
+                    <% elsif notify.comment_type == "Comment" %>
+                    comment
+                    <% end %> <!-- end of notify.comment_type -->
+                    <%= time_ago_in_words(notify.created_at)%>
+                    ago
+                </small>
+                <p>"<%= notify.body %>"</p>
+            </div>
+        </div>
+        <% end %> <!-- end of link_to -->
+        <br>
+        <% end %> <!-- end of notify loop -->
+        <% end %> <!-- end of unless -->
+
+        <% if @noties.blank? %>
+        <h5>There is no notifications yet</h5>
+        <% end %> <!-- end of @noties.blank? -->
+        <br/>
+        <%= paginate @noties %>
+    </div>
+    <div class="col-md-3"></div>

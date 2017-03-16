@@ -1,0 +1,198 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">RedList <small>Beta Version 1.0</small></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        Categories<span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" role="menu">
+                      <li>
+                          <a href="/stories">
+                              All Stories
+                          </a>
+                      </li>
+                      <li class="divider" role="separator"></li>
+                        <li>
+                            <a href="/advertisements?category=All Categories">
+                                All Advertisements
+                            </a>
+                        </li>
+                        <% Category.all.each do |category| %>
+                        <li class="<%= 'active' if params[:category] == category.name %>">
+                            <%= link_to category.name,
+                      advertisements_path(category: category.name),
+                      class: "link" %>
+                        </li>
+                        <% end %>
+                        <li class="divider" role="separator"></li>
+                        <li>
+                            <a href="/groups">
+                                All Groups
+                            </a>
+                        </li>
+
+                        <!-- <li class="divider" role="separator"></li>
+                        <li>
+                            <a href="/yearbooks">
+                                All Yearbooks
+                            </a>
+                        </li> -->
+
+                    </ul>
+                </li>
+
+                <% if user_signed_in? %>
+
+                <% unread_count = current_user.notifications.where('read = ?',false).length %>
+                <% notifications = current_user.notifications.order("created_at DESC") %>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        Create<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><%= link_to "New Story", new_story_path %></li>
+                      <li class="divider" role="separator"></li>
+                        <li><%= link_to "New Advertisement", new_advertisement_path %></li>
+                        <li class="divider" role="separator"></li>
+                        <li><%= link_to "New Group", new_group_path %></li>
+
+                        <!-- <li class="divider" role="separator"></li>
+                        <li><%#= link_to "New Yearbook", new_yearbook_path %></li> -->
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <span class="glyphicon glyphicon-bell"></span>
+                        <span class="badge"><%= unread_count %></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+
+                        <% if notifications.empty? %>
+                        <li><%= link_to "No notifications", '#' %></li>
+                    <% else %>
+                        <li><%= link_to "Notifications", notifications_path %></li>
+                        <% notifications.take(7).each do |notify| %>
+                        <% user = User.find_by(id: notify.notified_by_id) %>
+                        <li role="separator" class="divider"></li>
+                        <% if notify.read == true %>
+                        <li>
+                        <% else %>
+                        <li style="background: #dadada;">
+                            <% end %>
+                            <%= link_to(advertisement_path(notify.advertisement_id)) do %>
+
+                            <% if user.avatar.url == "/images/original/missing.png" %>
+                            <%= letter_avatar_tag(user.name, 40, class: "img-responsive") %>
+                        <% else %>
+                            <%= image_tag(user.avatar.url(:index), class: "img-responsive") %>
+                            <% end %>
+
+                            <small>
+                                <% if user.id == current_user.id %>
+                                You
+                            <% else %>
+                                <%= capitalize_all(user.name) %>
+                                <% end %>
+
+                                <%= notify.info %>
+                                a comment on your
+
+                                <% if notify.comment_type == "Advertisement" %>
+                                advertisement
+                                <% elsif notify.comment_type == "Comment" %>
+                                comment
+                                <% end %>
+
+                                <%= time_ago_in_words(notify.created_at)%>
+                                ago
+                            </small>
+                            <% end %>
+                            <!-- end of link_to -->
+                        </li>
+
+                        <% end %>
+                        <!-- end of notify loop -->
+
+                        <li role="separator" class="divider"></li>
+                        <li><%= link_to "View more", notifications_path,
+                        class: "text-center" %></li>
+
+                        <% end %>
+                        <!-- end of notifications.empty? loop -->
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <% if current_user.avatar.url == "/images/original/missing.png" %>
+                        <%= letter_avatar_tag(current_user.name, 20, style: "margin-bottom: 3px;") %>
+                    <% else %>
+                        <%= image_tag(current_user.avatar.url(:icon), style: "margin-bottom: 3px;") %>
+                        <% end %>
+                        <%= capitalize_all(current_user.name.truncate(11)) %>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><%= link_to user_path(current_user) do %>
+                            <i class="glyphicon glyphicon-user"></i>
+                            My Profile
+                            <% end %></li>
+                        <li><%= link_to edit_user_registration_path(current_user) do %>
+                            <i class="glyphicon glyphicon-edit"></i>
+                            Account Settings
+                            <% end %></li>
+                        <li><%= link_to users_path do %>
+                            <i class="glyphicon glyphicon-list"></i>
+                            Find User
+                            <% end %></li>
+
+                        <!-- <li><%#= link_to yearbooks_path do %>
+                            <i class="glyphicon glyphicon-list"></i>
+                            My Yearbooks
+                            <%# end %></li> -->
+
+                        <li role="separator" class="divider"></li>
+                        <li><%= link_to static_pages_about_path do %>
+                            About
+                            <% end %></li>
+                        <li><%= link_to static_pages_help_path do %>
+                            Help
+                            <% end %></li>
+                        <li><%= link_to static_pages_privacy_policy_path do %>
+                            Privacy Policy
+                            <% end %></li>
+                        <li><%= link_to static_pages_report_problem_path do %>
+                            Report problem
+                            <% end %></li>
+                        <li role="separator" class="divider"></li>
+                        <li><%= link_to destroy_user_session_path, method: :delete do %>
+                            <i class="glyphicon glyphicon-log-out"></i>
+                            Sign Out
+                            <% end %></li>
+                    </ul>
+                </li>
+
+            <% else %>
+                <li><%= link_to "Sign Up", new_user_registration_path %></li>
+                <li><%= link_to "Sign In", new_user_session_path %></li>
+                <% end %>
+                <!-- end of user_signed_in? if -->
+            </ul>
+        </div>
+    </div>
+</div>
+</nav>

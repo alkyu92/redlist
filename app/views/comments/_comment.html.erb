@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="col-md-1 col-xs-2 text-right">
+        <% if comment.user.avatar.url == "/images/original/missing.png" %>
+        <% if comment.commentable_type == "Comment" %>
+        <%= letter_avatar_tag(comment.user.name, 35) %>
+    <% else %>
+        <%= letter_avatar_tag(comment.user.name, 50) %>
+        <% end %>
+    <% else %>
+        <% if comment.commentable_type == "Comment" %>
+        <%= image_tag(comment.user.avatar.url(:child)) %>
+    <% else %>
+        <%= image_tag(comment.user.avatar.url(:parent)) %>
+        <% end %>
+        <% end %>
+    </div>
+    <div class="col-md-11 col-xs-10 text-left">
+      <% adver = Advertisement.find_by(id: comment.advertisement_id) %>
+      <% if comment.user.id == adver.user_id %>
+        <span style="font-weight: bold; background-color: #5bc0de; color: white;">
+          <% else %>
+          <span style="font-weight: bold;">
+          <% end %>
+            <%= capitalize_all(comment.user.name) %>
+        </span>
+        <small style="color: grey;">
+            &middot
+            <%= time_ago_in_words(comment.created_at) %>
+            ago
+            <% if comment.info == "edited" %>
+            &middot
+            edited
+            <% end %>
+        </small>
+
+        <% if user_signed_in? %>
+        <% if comment.user.id == current_user.id ||
+                    current_user.privilege == "sudo" ||
+                    current_user.privilege == "admin" %>
+        <div class="row">
+            <div class="col-xs-12">
+                <small>
+                    <%= link_to "Edit", edit_advertisement_comment_path(comment) %>
+                    |
+                    <%= link_to "Delete", advertisement_comment_path(comment),
+                    method: :delete, data: {confirm: "Are you sure?"} %>
+                </small>
+            </div>
+        </div>
+        <% end %>
+        <!-- end of user_signed_in? if -->
+        <% end %>
+        <!-- end of comment.user.id if -->
+
+        <%= simple_format h(comment.body) %>
+        <% if comment.commentable_type == "Advertisement" %>
+        <br>
+        <% end %>
+        <div class="row">
+            <div class="col-lg-12">
+                <%= render partial: 'comments/comment', collection: comment.comments %>
+            </div>
+
+            <div class="col-lg-1 col-xs-2 text-right" id="<%= comment.commentable_type %>">
+                <% if user_signed_in? %>
+                <% if current_user.avatar.url == "/images/original/missing.png" %>
+                <%= letter_avatar_tag(current_user.name, 35) %>
+            <% else %>
+                <%= image_tag(current_user.avatar.url(:child)) %>
+                <% end %>
+            <% else %>
+                <%= image_tag('blank_person_35.gif')%>
+                <% end %>
+            </div>
+            <div class="col-lg-11 col-xs-10 text-left">
+                <%= simple_form_for [comment, Comment.new],html: {id: comment.commentable_type} do |f| %>
+                <%= f.error_notification %>
+                <%= f.input :body,label: false, placeholder: "Add a Reply..." %>
+                <%= f.submit "Reply", class: "btn btn-default"  %>
+                <br><br>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

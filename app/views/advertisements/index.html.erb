@@ -1,0 +1,56 @@
+<div class="col-md-3"></div>
+<div id="posts" class="col-md-6">
+  <div class="panel">
+    <div class="panel-body">
+  <h3>Advertisements
+    <% if params[:category].blank? %>
+    <small>All Categories</small>
+    <% else %>
+    <small><%= params[:category] if params[:category] %></small>
+    <% end %>
+  </h3>
+    <hr>
+    <% if @advertisements.blank? %>
+    <h5>
+        There are currently no
+        <%= params[:category].downcase unless params[:category].blank? ||
+        params[:category] == "All Categories" %>
+        advertisement yet
+    </h5>
+    <% end %>
+  </div>
+</div>
+    <% if @advertisements.blank? %>
+
+    <div style="padding-top: 60px;"></div>
+    <div class="panel">
+        <div class="panel-body">
+            <h3 class="text-center">
+                Get noticed. Fast.
+            </h3>
+            <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+              <hr>
+            </div>
+            <div class="col-lg-2"></div>
+          </div>
+            <h5 class="text-center">
+              <% if user_signed_in? %>
+              <%= link_to 'Create advertisements', new_advertisement_path %> and comments on any advertisement posts.
+              <% else %>
+              Sign up to advertise and comment on posts. Its free and always will be.
+              <% end %>
+            </h5>
+        </div>
+    </div>
+    <% else %>
+    <div class="page">
+        <%= render @advertisements %>
+    </div>
+    <% end %> <!-- if @advertisements.blank -->
+    <div class="text-center">
+        <%= paginate @advertisements %>
+    </div>
+</div>
+<div class="col-md-3"></div>

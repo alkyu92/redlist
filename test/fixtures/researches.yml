@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  major: MyString
+  specialization: MyString
+  description: MyText
+
+two:
+  major: MyString
+  specialization: MyString
+  description: MyText
