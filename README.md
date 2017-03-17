@@ -20,12 +20,12 @@ We also encourage everyone to contribute and improve this platform.
 
 ## How to setup Redlist
 
-You can clone or download this repository and run the commands below:
+You can clone or download this repository, go to the directory and run the commands below:
 
 ```
-bundle
-rails db:migrate
-rails server
+$ bundle
+$ rails db:migrate
+$ rails server
 ```
 
 Feel free to send feedback to us.
