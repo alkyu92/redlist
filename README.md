@@ -22,8 +22,8 @@ We also encourage everyone to contribute and improve this platform.
 
 You can clone or download this repository and run the commands below:
 
-'bundle'
-'rails db:migrate'
-'rails s'
+bundle
+rails db:migrate
+rails server
 
 Feel free to send feedback to us.
