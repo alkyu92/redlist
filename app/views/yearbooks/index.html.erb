@@ -1,11 +1,11 @@
 <h3>Yearbooks</h3>
 <hr>
 <div class="row">
-    <% for i in 0...9 do %>
-      <%= link_to '#' do %>
-    <div class="col-lg-4" style="padding-bottom: 35px;">
+    <% @yearbooks.each do |yearbook| %>
+      <%= link_to yearbook_path(yearbook) do %>
+      <div class="col-lg-4" style="padding-bottom: 35px;">
         <img class="img-responsive" src="http://placehold.it/450x600">
-    </div>
-    <% end %>
+      </div>
+      <% end %>
     <% end %>
 </div>

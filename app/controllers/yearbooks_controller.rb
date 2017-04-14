@@ -1,4 +1,7 @@
 class YearbooksController < ApplicationController
+  before_action :authenticate_user!
+  before_action :find_yearbook, only: [:show, :edit, :destroy]
+
   def index
     @yearbooks = Yearbook.all
   end
@@ -15,6 +18,7 @@ class YearbooksController < ApplicationController
 
     if @yearbook.save
       flash[:success] = "Yearbook created!"
+      redirect_to yearbooks_path
     else
       flash[:danger] = "Failed to create yearbook!"
       render 'new'
@@ -27,9 +31,10 @@ class YearbooksController < ApplicationController
   def update
     if @yearbook.update(yearbook_params)
       flash[:success] = "Yearbook updated!"
+      redirect_to @yearbook
     else
       flash[:danger] = "Failed to update yearbook!"
-      redirect_to 'edit'
+      render 'edit'
     end
   end
 
@@ -43,5 +48,9 @@ class YearbooksController < ApplicationController
 
   def yearbook_params
     params.require(:yearbook).permit(:title)
+  end
+
+  def find_yearbook
+    @yearbook = Yearbook.find(params[:id])
   end
 end
