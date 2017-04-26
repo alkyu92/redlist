@@ -12,6 +12,8 @@ password = '123456'
 password_confirmation = '123456'
 privilege = ['sudo', 'admin', 'normal']
 
+categories = ['Part-time Jobs', 'Jobs Hunting', 'Scholarships', 'Events', 'Promotions']
+
 for i in 0...3 do
 User.create!(
   name: name[i],
@@ -20,4 +22,8 @@ User.create!(
   password_confirmation: password_confirmation,
   privilege: privilege[i]
 )
+end
+
+categories.each do |category_name|
+  Category.create!(name: category_name)
 end
