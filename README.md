@@ -27,7 +27,12 @@ You can clone or download this repository, go to the directory and run the comma
 ```
 $ bundle
 $ rails db:migrate
+$ rails db:seed
 $ rails server
+```
+or by running a single shell script below
+```
+$ ./dbstart
 ```
 ## Future Works
 
