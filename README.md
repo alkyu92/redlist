@@ -20,14 +20,20 @@ We also encourage everyone to contribute and improve this platform.
 
 ## How to setup Redlist
 
+Make sure you have Ruby version 2.3.3 and Rails version 5.
+
 You can clone or download this repository, go to the directory and run the commands below:
 
 ```
 $ bundle
 $ rails db:migrate
+$ rails db:seed
 $ rails server
 ```
-
+or by running a single shell script below
+```
+$ ./dbstart
+```
 ## Future Works
 
 - Full text search(elasticsearch)
