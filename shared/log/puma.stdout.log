@@ -1,0 +1,20 @@
+=== puma startup: 2017-06-21 16:17:47 +0800 ===
+[4659] * Starting control server on unix:///tmp/puma-status-1498033067019-4659
+[4659] - Worker 0 (pid: 4695) booted, phase: 0
+[4659] - Worker 1 (pid: 4699) booted, phase: 0
+[4659] - Worker 2 (pid: 4703) booted, phase: 0
+[4659] - Worker 3 (pid: 4713) booted, phase: 0
+[4659] - Gracefully shutting down workers...
+[4659] === puma shutdown: 2017-06-21 16:20:09 +0800 ===
+[4659] - Goodbye!
+Exiting
+=== puma startup: 2017-06-21 16:23:48 +0800 ===
+[5385] * Starting control server on unix:///tmp/puma-status-1498033428420-5385
+[5385] - Worker 0 (pid: 5392) booted, phase: 0
+[5385] - Worker 1 (pid: 5396) booted, phase: 0
+[5385] - Worker 2 (pid: 5406) booted, phase: 0
+[5385] - Worker 3 (pid: 5416) booted, phase: 0
+[5385] - Gracefully shutting down workers...
+[5385] === puma shutdown: 2017-06-21 16:29:17 +0800 ===
+[5385] - Goodbye!
+Exiting
