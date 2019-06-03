@@ -36,3 +36,68 @@
 	from /home/ali/.rvm/gems/ruby-2.3.3/gems/railties-5.0.0.1/lib/rails/commands.rb:18:in `<top (required)>'
 	from bin/rails:4:in `require'
 	from bin/rails:4:in `<main>'
+=== puma startup: 2019-06-03 16:29:12 +0800 ===
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+=== puma startup: 2019-06-03 16:29:39 +0800 ===
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+/home/ali/.rvm/gems/ruby-2.6.2/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+=== puma startup: 2019-06-03 16:59:08 +0800 ===
+=== puma startup: 2019-06-03 16:59:39 +0800 ===
+=== puma startup: 2019-06-03 17:00:14 +0800 ===
+=== puma startup: 2019-06-03 17:04:32 +0800 ===
+=== puma startup: 2019-06-03 17:06:43 +0800 ===
+=== puma startup: 2019-06-03 17:09:36 +0800 ===
+2019-06-03 17:09:49 +0800: Rack app error handling request { GET / }
+#<RuntimeError: Missing `secret_key_base` for 'production' environment, set this value in `config/secrets.yml`>
+/home/ali/.rvm/gems/ruby-2.3.3/gems/railties-5.0.7.2/lib/rails/application.rb:513:in `validate_secret_key_config!'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/railties-5.0.7.2/lib/rails/application.rb:246:in `env_config'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/railties-5.0.7.2/lib/rails/engine.rb:693:in `build_request'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/railties-5.0.7.2/lib/rails/application.rb:521:in `build_request'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/railties-5.0.7.2/lib/rails/engine.rb:521:in `call'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/puma-3.12.1/lib/puma/configuration.rb:227:in `call'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/puma-3.12.1/lib/puma/server.rb:660:in `handle_request'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/puma-3.12.1/lib/puma/server.rb:474:in `process_client'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/puma-3.12.1/lib/puma/server.rb:334:in `block in run'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/puma-3.12.1/lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+2019-06-03 17:09:49 +0800: Rack app error handling request { GET /favicon.ico }
+#<RuntimeError: Missing `secret_key_base` for 'production' environment, set this value in `config/secrets.yml`>
+/home/ali/.rvm/gems/ruby-2.3.3/gems/railties-5.0.7.2/lib/rails/application.rb:513:in `validate_secret_key_config!'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/railties-5.0.7.2/lib/rails/application.rb:246:in `env_config'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/railties-5.0.7.2/lib/rails/engine.rb:693:in `build_request'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/railties-5.0.7.2/lib/rails/application.rb:521:in `build_request'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/railties-5.0.7.2/lib/rails/engine.rb:521:in `call'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/puma-3.12.1/lib/puma/configuration.rb:227:in `call'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/puma-3.12.1/lib/puma/server.rb:660:in `handle_request'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/puma-3.12.1/lib/puma/server.rb:474:in `process_client'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/puma-3.12.1/lib/puma/server.rb:334:in `block in run'
+/home/ali/.rvm/gems/ruby-2.3.3/gems/puma-3.12.1/lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+=== puma startup: 2019-06-03 17:12:20 +0800 ===

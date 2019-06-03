@@ -23,5 +23,8 @@
 #Ignore public system file
 /public/system/*
 
+#Ignore public assets file
+/public/assets/*
+
 # Ignore application configuration
 /config/application.yml

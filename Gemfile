@@ -4,7 +4,7 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'sqlite3', '~> 1.3.6'
 gem 'figaro'
 gem 'letter_avatar', '~> 0.3.2'
 gem 'paperclip', '~> 5.1'

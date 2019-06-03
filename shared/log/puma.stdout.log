@@ -18,3 +18,213 @@ Exiting
 [5385] === puma shutdown: 2017-06-21 16:29:17 +0800 ===
 [5385] - Goodbye!
 Exiting
+=== puma startup: 2019-06-03 16:29:12 +0800 ===
+[21055] * Starting control server on unix:///tmp/puma-status-1559550552094-21055
+[21055] - Worker 2 (pid: 21065) booted, phase: 0
+[21055] - Worker 0 (pid: 21061) booted, phase: 0
+[21055] - Worker 1 (pid: 21063) booted, phase: 0
+[21055] - Worker 3 (pid: 21067) booted, phase: 0
+Started GET "/" for 127.0.0.1 at 2019-06-03 16:29:18 +0800
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+	bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.0.0.1) lib/active_record/migration.rb:572:in `check_pending!'
+activerecord (5.0.0.1) lib/active_record/migration.rb:548:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/callbacks.rb:38:in `block in call'
+activesupport (5.0.0.1) lib/active_support/callbacks.rb:97:in `__run_callbacks__'
+activesupport (5.0.0.1) lib/active_support/callbacks.rb:750:in `_run_call_callbacks'
+activesupport (5.0.0.1) lib/active_support/callbacks.rb:90:in `run_callbacks'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/callbacks.rb:36:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:49:in `call'
+web-console (3.4.0) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.4.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.4.0) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.4.0) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.0.1) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.0.1) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.0.1) lib/active_support/tagged_logging.rb:70:in `block in tagged'
+activesupport (5.0.0.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.0.1) lib/active_support/tagged_logging.rb:70:in `tagged'
+railties (5.0.0.1) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.0) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/method_override.rb:22:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.0.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.0.1) lib/rails/engine.rb:522:in `call'
+puma (3.9.1) lib/puma/configuration.rb:224:in `call'
+puma (3.9.1) lib/puma/server.rb:602:in `handle_request'
+puma (3.9.1) lib/puma/server.rb:435:in `process_client'
+puma (3.9.1) lib/puma/server.rb:299:in `block in run'
+puma (3.9.1) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+  Rendering /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout
+  Rendering /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (1.5ms)
+  Rendering /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.7ms)
+  Rendering /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.5ms)
+  Rendered /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (14.3ms)
+[21055] - Gracefully shutting down workers...
+[21055] === puma shutdown: 2019-06-03 16:29:28 +0800 ===
+[21055] - Goodbye!
+Exiting
+=== puma startup: 2019-06-03 16:29:39 +0800 ===
+[21462] * Starting control server on unix:///tmp/puma-status-1559550579812-21462
+[21462] - Worker 0 (pid: 21467) booted, phase: 0
+[21462] - Worker 1 (pid: 21469) booted, phase: 0
+[21462] - Worker 2 (pid: 21471) booted, phase: 0
+[21462] - Worker 3 (pid: 21473) booted, phase: 0
+Started GET "/" for 127.0.0.1 at 2019-06-03 16:29:42 +0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by StoriesController#index as HTML
+  Rendering stories/index.html.erb within layouts/application
+  Rendered stories/index.html.erb within layouts/application (263.7ms)
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  Rendered layouts/_header.html.erb (3.3ms)
+  Rendered layouts/_messages.html.erb (0.3ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 3035ms (Views: 3024.9ms | ActiveRecord: 0.6ms)
+
+
+  
+ArgumentError (key must be 32 bytes):
+  
+activesupport (5.0.0.1) lib/active_support/message_encryptor.rb:72:in `key='
+activesupport (5.0.0.1) lib/active_support/message_encryptor.rb:72:in `_encrypt'
+activesupport (5.0.0.1) lib/active_support/message_encryptor.rb:58:in `encrypt_and_sign'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/cookies.rb:592:in `commit'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/cookies.rb:465:in `[]='
+actionpack (5.0.0.1) lib/action_dispatch/middleware/session/cookie_store.rb:117:in `set_cookie'
+rack (2.0.1) lib/rack/session/abstract/id.rb:353:in `commit_session'
+rack (2.0.1) lib/rack/session/abstract/id.rb:224:in `context'
+rack (2.0.1) lib/rack/session/abstract/id.rb:216:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.0.0.1) lib/active_record/migration.rb:552:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/callbacks.rb:38:in `block in call'
+activesupport (5.0.0.1) lib/active_support/callbacks.rb:97:in `__run_callbacks__'
+activesupport (5.0.0.1) lib/active_support/callbacks.rb:750:in `_run_call_callbacks'
+activesupport (5.0.0.1) lib/active_support/callbacks.rb:90:in `run_callbacks'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/callbacks.rb:36:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:49:in `call'
+web-console (3.4.0) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.4.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.4.0) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.4.0) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.0.1) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.0.1) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.0.1) lib/active_support/tagged_logging.rb:70:in `block in tagged'
+activesupport (5.0.0.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.0.1) lib/active_support/tagged_logging.rb:70:in `tagged'
+railties (5.0.0.1) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.0) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/method_override.rb:22:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.0.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0.1) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.0.1) lib/rails/engine.rb:522:in `call'
+puma (3.9.1) lib/puma/configuration.rb:224:in `call'
+puma (3.9.1) lib/puma/server.rb:602:in `handle_request'
+puma (3.9.1) lib/puma/server.rb:435:in `process_client'
+puma (3.9.1) lib/puma/server.rb:299:in `block in run'
+puma (3.9.1) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+  Rendering /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout
+  Rendering /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (1.0ms)
+  Rendering /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.6ms)
+  Rendering /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.3ms)
+  Rendered /home/ali/.rvm/gems/ruby-2.6.2/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (7.2ms)
+[21462] - Gracefully shutting down workers...
+[21462] === puma shutdown: 2019-06-03 16:29:56 +0800 ===
+[21462] - Goodbye!
+Exiting
+=== puma startup: 2019-06-03 16:59:08 +0800 ===
+[17106] * Starting control server on unix:///tmp/puma-status-1559552348252-17106
+[17106] - Worker 0 (pid: 17113) booted, phase: 0
+[17106] - Worker 1 (pid: 17117) booted, phase: 0
+[17106] - Worker 2 (pid: 17121) booted, phase: 0
+[17106] - Worker 3 (pid: 17125) booted, phase: 0
+[17106] - Gracefully shutting down workers...
+[17106] === puma shutdown: 2019-06-03 16:59:28 +0800 ===
+[17106] - Goodbye!
+Exiting
+=== puma startup: 2019-06-03 16:59:39 +0800 ===
+[17207] * Starting control server on unix:///tmp/puma-status-1559552379443-17207
+[17207] - Worker 0 (pid: 17215) booted, phase: 0
+[17207] - Worker 1 (pid: 17219) booted, phase: 0
+[17207] - Worker 2 (pid: 17223) booted, phase: 0
+[17207] - Worker 3 (pid: 17227) booted, phase: 0
+[17207] - Gracefully shutting down workers...
+[17207] === puma shutdown: 2019-06-03 17:00:00 +0800 ===
+[17207] - Goodbye!
+Exiting
+=== puma startup: 2019-06-03 17:00:14 +0800 ===
+[17278] * Starting control server on unix:///tmp/puma-status-1559552414564-17278
+[17278] - Worker 0 (pid: 17286) booted, phase: 0
+[17278] - Worker 2 (pid: 17294) booted, phase: 0
+[17278] - Worker 1 (pid: 17290) booted, phase: 0
+[17278] - Worker 3 (pid: 17298) booted, phase: 0
+[17278] - Gracefully shutting down workers...
+[17278] === puma shutdown: 2019-06-03 17:02:09 +0800 ===
+[17278] - Goodbye!
+Exiting
+=== puma startup: 2019-06-03 17:04:32 +0800 ===
+[18261] * Starting control server on unix:///tmp/puma-status-1559552672774-18261
+[18261] - Worker 0 (pid: 18269) booted, phase: 0
+[18261] - Worker 1 (pid: 18273) booted, phase: 0
+[18261] - Worker 2 (pid: 18277) booted, phase: 0
+[18261] - Worker 3 (pid: 18281) booted, phase: 0
+[18261] - Gracefully shutting down workers...
+[18261] === puma shutdown: 2019-06-03 17:06:06 +0800 ===
+[18261] - Goodbye!
+Exiting
+=== puma startup: 2019-06-03 17:06:43 +0800 ===
+[18390] * Starting control server on unix:///tmp/puma-status-1559552803888-18390
+[18390] - Worker 0 (pid: 18398) booted, phase: 0
+[18390] - Worker 1 (pid: 18402) booted, phase: 0
+[18390] - Worker 2 (pid: 18406) booted, phase: 0
+[18390] - Worker 3 (pid: 18422) booted, phase: 0
+[18390] - Gracefully shutting down workers...
+[18390] === puma shutdown: 2019-06-03 17:07:42 +0800 ===
+[18390] - Goodbye!
+Exiting
+=== puma startup: 2019-06-03 17:09:36 +0800 ===
+[18704] * Starting control server on unix:///tmp/puma-status-1559552976492-18704
+[18704] - Worker 0 (pid: 18712) booted, phase: 0
+[18704] - Worker 1 (pid: 18716) booted, phase: 0
+[18704] - Worker 2 (pid: 18720) booted, phase: 0
+[18704] - Worker 3 (pid: 18736) booted, phase: 0
+[18704] - Gracefully shutting down workers...
+[18704] === puma shutdown: 2019-06-03 17:10:23 +0800 ===
+[18704] - Goodbye!
+Exiting
+=== puma startup: 2019-06-03 17:12:20 +0800 ===
+[18856] * Starting control server on unix:///tmp/puma-status-1559553140167-18856
+[18856] - Worker 0 (pid: 18864) booted, phase: 0
+[18856] - Worker 1 (pid: 18868) booted, phase: 0
+[18856] - Worker 2 (pid: 18872) booted, phase: 0
+[18856] - Worker 3 (pid: 18876) booted, phase: 0
+[18856] - Gracefully shutting down workers...
+[18856] === puma shutdown: 2019-06-03 17:13:27 +0800 ===
+[18856] - Goodbye!
+Exiting
